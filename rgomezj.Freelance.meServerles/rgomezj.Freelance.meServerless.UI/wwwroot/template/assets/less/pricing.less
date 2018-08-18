@@ -1,0 +1,97 @@
+.section-pricing {
+	padding-top: 80px;
+	padding-bottom: 80px;
+	.popular {
+		.box-shadow
+	}
+	h2, p {
+		color: #fff;
+		font-weight: 200;
+	}
+}
+.pricing {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	.pricing-name {
+		background-color: @secondary-color;
+		padding: 30px 15px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		h3 {
+			text-transform: uppercase;
+			font-weight: 600;
+			letter-spacing: 2px;
+			font-size: 20px;
+			color: #fff;
+			margin-top: 0px;
+		}
+		.price {
+			color: #fff;
+			.number {
+				font-size: 64px;
+				display: block;
+				line-height: 1;
+				sup {
+					font-size: 18px;
+				}
+			}
+		}
+	}
+	.price-content {
+		background: #fff;
+		padding: 30px 30px;
+		border-bottom-right-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+	.price-features {
+		margin: 0px 0px 30px 0px;
+		padding: 0px;
+		list-style-type: none;
+		li {
+			padding: 10px 0px;
+			border-bottom: 1px solid #ccc;
+		}
+	}
+}
+
+.sale-box span.on_sale {
+    font-size: 10px;
+    color: #444;
+    background: #ffd400;
+    text-transform: uppercase;
+    padding: 64px 35px 10px 50px;
+    width: 290px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    left: -24px;
+    top: -41px;
+    font-weight: 600;
+    -webkit-transform: rotate(44deg);
+    -ms-transform: rotate(44deg);
+    transform: rotate(40deg);
+    -o-transform: rotate(40deg);
+    box-shadow: 3px -4px 13px 3px rgba(0,0,0,0.75);
+}
+.sale-box {
+    position: absolute;
+    top: 30px;
+    overflow: hidden;
+    height: 130px;
+    width: 143px;
+    text-align: center;
+    z-index: 0;
+    right: 15px;
+    border-top-right-radius: 5px;
+    -o-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -khtml-border-top-right-radius: 5px;
+}
+
+// Responsive Styles
+@media only screen and (max-width : 992px) {
+	.sale-box {
+		top: 0px;
+	}
+}

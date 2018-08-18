@@ -1,0 +1,48 @@
+.section-process {
+	padding-top: 70px;
+	padding-bottom: 80px;
+	h2 {
+		margin-bottom: 10px;
+	}
+	.nav-pills {
+		display: inline-block;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		text-transform: uppercase;
+		font-weight: 600;
+		li {
+			a {
+				color: #777777;
+				&:hover {
+					background-color: transparent;
+					color: @primary-color;
+					span {
+						border-color: @primary-color;
+					}
+				}
+			}
+			span {
+				font-size: 22px;
+				display: inline-block;
+				border: 2px solid #777;
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+				padding-top: 2px;
+				padding-left: 1px;
+				margin-right: 4px;
+			}
+		}
+	}
+	.nav-pills>li.active>a, 
+	.nav-pills>li.active>a:focus, 
+	.nav-pills>li.active>a:hover {
+		background-color: transparent;
+		color: @primary-color;
+		span {
+			background: @primary-color;
+			border-color: @primary-color;
+			color: #fff;
+		}
+	}
+}

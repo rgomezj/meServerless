@@ -1,0 +1,30 @@
+.feature-box {
+	margin-top: 40px;
+	margin-bottom: 15px;
+	.media {
+		.media-object {
+			max-width: 50px;
+			margin-right: 4px;
+		}
+		.media-body {
+			h4 {
+				font-weight: 500;
+			}
+			p {
+				font-size: 13px;
+				line-height: 1.5;
+			}
+		}
+	}
+}
+
+// Responsive Styles
+@media only screen and (max-width : 768px) {
+	.feature-box {
+		.media {
+			.media-object {
+				max-width: 36px;
+			}
+		}
+	}
+}

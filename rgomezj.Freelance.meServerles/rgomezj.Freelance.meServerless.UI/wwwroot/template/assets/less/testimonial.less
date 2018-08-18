@@ -1,0 +1,46 @@
+.section-testimonial {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+.textimonial-box {
+	.testimonial-content {
+		font-style: italic;
+		font-size: 22px;
+		margin-bottom: 10px;
+		line-height: 1.6;
+	}
+	.client {
+		.client-img {
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
+			background-size: cover;
+			display: inline-block;
+			margin-top: 15px;
+		}
+		h4 {
+			text-transform: uppercase;
+			color: @secondary-color;
+			font-size: 15px;
+			font-weight: 600;
+			margin-bottom: 0px;
+		}
+		p {
+			font-size: 13px;
+		}
+	}
+}
+.client-logo {
+	img {
+		padding: 0px 15px;
+	}
+}
+
+// Responsive Styles
+@media only screen and (max-width : 768px) {
+	.textimonial-box {
+		.testimonial-content {
+			font-size: 18px;
+		}
+	}
+}

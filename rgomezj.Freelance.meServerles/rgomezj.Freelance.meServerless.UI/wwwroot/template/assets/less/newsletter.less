@@ -1,0 +1,29 @@
+.section-newsletter {
+	background-color: @secondary-color;
+	h2 {
+		margin-top: 0px;
+		color: #fff;
+		font-weight: 200;
+	}
+	p {
+		color: #fff;
+		font-weight: 200;
+	}
+	form {
+		margin-top: 30px;
+	}
+	.input-group {
+		.form-control {
+			border-color: #fff;
+		}
+		.form-control:focus {
+			border-color: @primary-color;
+		}
+		.btn-primary {
+			//background: darken(@secondary-color, 10%);
+			//border-color: darken(@secondary-color, 10%);
+			background: @primary-color;
+			border-color: darken(@primary-color, 10%);
+		}
+	}
+}

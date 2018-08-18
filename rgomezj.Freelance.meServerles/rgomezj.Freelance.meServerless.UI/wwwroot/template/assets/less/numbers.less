@@ -1,0 +1,48 @@
+.number-box {
+	border-right: 1px solid fade(#fff, 30%);
+	h3 {
+		font-size: 42px;
+		margin-top: 10px;
+		margin-bottom: 5px;
+		color: #fff;
+		font-weight: 200;
+	}
+	p {
+		text-transform: uppercase;
+		font-weight: 400;
+		color: #fff;
+	}
+	&.no-border {
+		border-color: transparent;
+	}
+}
+
+.section-numbers {
+	background: @secondary-color;
+}
+.section-numbers-light {
+	background: #f1f1f1 url('../img/playstation-pattern.png');
+	.number-box {
+		border-right: 1px solid fade(@primary-color, 30%);
+	}
+	h3 {
+		color: @secondary-color;
+	}
+	p {
+		color: @secondary-color;
+	}
+}
+
+// Responsive Styles
+@media only screen and (max-width : 768px) {
+	.number-box {
+		border-right: none;
+		margin-bottom: 30px;
+	}
+}
+@media only screen and (min-width : 768px) and (max-width : 992px) {
+	.number-box {
+		border-right: none;
+		margin-bottom: 30px;
+	}
+}

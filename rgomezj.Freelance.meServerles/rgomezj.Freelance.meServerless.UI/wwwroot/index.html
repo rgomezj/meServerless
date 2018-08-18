@@ -1,0 +1,429 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Roger Gomez</title>
+
+    <link rel="icon" type="image/png" href="template/assets/img/favicon.png" />
+
+    <!-- Bootstrap -->
+    <link href="template/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="template/assets/plugins/OwlCarousel2-2.2.0/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="template/assets/plugins/OwlCarousel2-2.2.0/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="template/assets/plugins/animate.css" rel="stylesheet">
+    <link href="template/assets/plugins/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <link href="template/assets/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- default styles -->
+    <link href="template/assets/css/default.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300,300i,400,400i,500,600,700" rel="stylesheet">
+
+    <!-- Page loader animation -->
+    <style type="text/css">
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999999;
+            background: url(/template/assets/img/loader.svg) center no-repeat #fff;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+
+    <!-- pre loader -->
+    <div class="se-pre-con"></div>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top nav-expanded">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    @*<img src="/template/assets/img/logo.png" class="img-responsive" alt="brand logo">*@
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="scrollto" href="#home">Home</a></li>
+                    <li><a class="scrollto" href="#about">About</a></li>
+                    @*
+                    <li><a class="scrollto" href="#process">Process</a></li>*@
+                    <li><a class="scrollto" href="#works">Companies</a></li>
+                    <li><a class="scrollto" href="#clients">References</a></li>
+                    @*
+                    <li><a class="scrollto" href="#pricing">Pricing</a></li>*@
+                    <li><a class="scrollto" href="#contact">Contact</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- header -->
+    <div class="header" id="home" style="background-image: url('/template/assets/img/header.jpg');">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>@Model.GeneralInfo.Name - @Model.GeneralInfo.Title</h1>
+                        <span class="line"></span>
+                        <p>
+
+                        </p>
+                        <a href="#" class="btn btn-primary">Check it out :)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-down hidden-xs">
+            <div class='icon-scroll'></div>
+        </div>
+    </div>
+
+    <!-- features -->
+    <div class="section section-features" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>@Model.GeneralInfo.Subtitle</h2>
+                    <p>
+                        @Html.Raw(Model.GeneralInfo.Summary)
+                    </p>
+                </div>
+                @foreach (var aptitude in Model.Aptitudes)
+                {
+                <div class="col-md-4 col-sm-6">
+                    <div class="feature-box wow fadeInUp" data-wow-delay="200ms">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="~/@aptitude.IconPath" alt=@aptitude.Title>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">@aptitude.Title</h4>
+                                <p>
+                                    @aptitude.Description
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.col-md-4 -->
+                }
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.section -->
+    <!-- numbers -->
+    <div class="section section-numbers">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="number-box text-center">
+                        <h3><span class="counter">@Model.GeneralInfo.YearsWorkingSoftware</span>+</h3>
+                        <p>Years working in Software Development</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="number-box text-center">
+                        <h3><span class="counter">@Model.GeneralInfo.YearsTechnicalLead</span>+</h3>
+                        <p>Years as Technical Lead</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="number-box text-center">
+                        <h3><span class="counter">@Model.GeneralInfo.ClientsFreelanceCount</span>+</h3>
+                        <p>Clients as Freelance</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="number-box text-center no-border">
+                        <h3><span class="counter">@Model.GeneralInfo.DynamicsCRMProjectsDelivered</span>+</h3>
+                        <p>Dynamics CRM Projects Delivered</p>
+                    </div>
+                </div>
+            </div><!-- /.row -->
+        </div>
+    </div>
+
+    <!-- team -->
+    <div class="section section-team">
+        <div class="container">
+            <div class="row">
+                <ul class="skills">
+                    @{ int i = 0; }
+                    <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
+                        @foreach (var skill in Model.Skills)
+                        {
+                        @if (i > 0 && i % 9 == 0)
+                        {
+                        // close the div and start again
+                        @:
+                    </ul>
+                    <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
+                        }
+                        <li class="progress" style="opacity: 1; left: 0px;">
+                            <div class="progress-bar" data-width="85" style="width: @skill.PercentageExpertise%;">
+                                @skill.SkillName
+                            </div>
+                        </li>
+                        i++;
+                        }
+                    </ul>
+            </div>
+        </div>
+    </div><!-- /.container -->
+    </div><!-- /.section -->
+    <!-- works -->
+    <div class="section section-works" id="works">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Companies I have worked for</h2>
+                    <p></p>
+                </div>
+                @foreach (var company in Model.Companies)
+                {
+                <div class="col-md-4 col-sm-6">
+                    <div class="work wow fadeInUp" data-wow-delay="200ms">
+                        <a class="gallery-work" href="template/assets/img/works/1-lg.jpg">
+                            <img src="~/@company.LogoPath" class="img-responsive" alt=@company.CompanyName>
+                            <div class="details">
+                                <h4>@company.CompanyName</h4>
+                                <p>@company.Position</p>
+                            </div><!-- details -->
+                        </a>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div><!-- /.section -->
+    <!-- testimonial -->
+    <div class="section section-testimonial" id="clients" data-parallax="scroll" data-image-src="/template/assets/img/client-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center wow fadeInUp" data-wow-delay="400ms">
+                    <h2>References</h2>
+                    <p>See opinions from clients and co-workers.</p>
+                    <div class="testimonials owl-carousel owl-theme" id="testimonials">
+
+                        @foreach (var reference in Model.References)
+                        {
+                        <div class="textimonial-box item">
+                            <div class="client">
+                                <div class="client-img" style="background-image: url(template/assets/img/clients/1.jpg);"></div>
+                                <h4>@reference.ReferenceName</h4>
+                                <a href="@reference.WebPage" target="_blank"><p style="font-weight:bold">@reference.ReferenceCompanyPosition</p></a>
+
+                            </div>
+                            <div class="testimonial-content">
+                                @reference.ReferenceDescription
+                            </div>
+                        </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container -->
+    </div>
+
+    <!-- logos -->
+    <div class="section section-client-logo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="client-logo text-center owl-carousel owl-theme" id="client-logos">
+                        @foreach (var technology in Model.Technologies)
+                        {
+                        <img src="~/@technology.LogoPath" class="img-responsive item" alt=@technology.TechnologyName>
+                        }
+                    </div>
+                </div>
+            </div><!-- /.row -->
+        </div>
+    </div>
+
+
+    <!-- contact -->
+    <div class="section section-contact no-margin-bottom" id="contact" style="background-image:url('/template/assets/img/contact-bg.png');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow fadeIn" data-wow-delay="200ms">
+                    <h2>Say Hello</h2>
+                    <p>Reach out to me anytime and I will happily answer your questions.</p>
+
+                    <!-- showing contact form sent status -->
+                    <div id="submitMessage"></div>
+
+                    <form class="contact-form" id="contact-form" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Your name :</label>
+                                    <input type="text" class="form-control" id="FromName" name="FromName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Your email :</label>
+                                    <input type="email" class="form-control" id="From" name="From" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="subject">Subject :</label>
+                                    <input type="text" class="form-control" id="Subject" name="Subject" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div><!-- /.row -->
+                        <div class="form-group">
+                            <label for="email">Your message :</label>
+                            <textarea class="form-control" id="Message" name="Message" required></textarea>
+                        </div>
+                        <div class="g-recaptcha" data-sitekey="6LcbSUoUAAAAAKiQa6-9K9V-j-xG1-M3JsQhnokp"></div>
+                        <div class="form-group">
+                            <input type="button" id="contact-form-submit" name="submit" value="Send Message" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-6 contact-address text-center">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="500ms">
+                            <img class="icon" src="template/assets/img/icons/phone-call.png" alt="phone call">
+                            <h4>Contact Me</h4>
+                            <p>
+                                @Model.GeneralInfo.Phone<br>
+                                @Model.GeneralInfo.EmailAddress
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="800ms">
+                            <img class="icon" src="template/assets/img/icons/placeholder.png" alt="placeholder">
+                            <h4>Location</h4>
+                            <p>
+                                @Model.GeneralInfo.Location<br>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-sm-4 wow fadeInUp" data-wow-delay="1200ms">
+                            <img class="icon" src="template/assets/img/icons/network.png" alt="network">
+                            <h4>On Social Media</h4>
+                            <ul class="list-inline list-social">
+                                <li><a href="https://www.facebook.com/rogergomez780" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/roger-gomez-jaramillo-45236b19" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                @*
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>*@
+                                <li><a href="https://www.github.com/rgomezj" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.upwork.com/freelancers/~01cf02d33ccbefd80b" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- /.col-md-6 -->
+            </div>
+        </div>
+    </div><!-- /.section -->
+    <!-- map -->
+    <div class="section section-map no-margin-bottom no-margin-top" id="map">
+    </div><!-- /.section -->
+    <script>
+                function initMap() {
+                    var uluru = { lat: 6.237129, lng: -75.556054 };
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        scrollwheel: false,
+                        zoom: 16,
+                        center: uluru,
+                        styles: [{ "featureType": "all", "elementType": "all", "stylers": [{ "hue": "#e7ecf0" }] }, { "featureType": "administrative.locality", "elementType": "all", "stylers": [{ "lightness": "6" }, { "color": "#4a148c" }, { "weight": "0.01" }, { "gamma": "1" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "hue": "#7300ff" }] }, { "featureType": "road", "elementType": "labels.text", "stylers": [{ "color": "#4a148c" }, { "weight": "0.01" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "simplified" }, { "saturation": "-45" }, { "color": "#4a148c" }, { "lightness": "57" }] }]
+                    });
+                    var marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
+                }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDryG820sn6a0ptMga9C_qFjHejm1LSv2k&callback=initMap">
+    </script>
+    <!-- Maps Section Ends Here-->
+
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <!-- Start: Copyright 2018 TraceMyIP.org Service Code (110319-03052018)- DO NOT MODIFY //-->
+                    <div style="line-height:16px;text-align:center;">
+                        <script type="text/javascript" src="//s2.tracemyip.org/tracker/lgUrl.php?stlVar2=1500~1520247647~10*4~35148C*FFFFFF*FA0000*003091~1*1*0*0*0&amp;rgtype=4684NR-IPIB&amp;pidnVar2=83686&amp;prtVar2=4&amp;scvVar2=12"></script><noscript><div><a title="what is my ip" href="https://www.tracemyip.org/"><img src="//s2.tracemyip.org/tracker/1500~1520247647~10*4~35148C*FFFFFF*FA0000*003091~1*1*0*0*0/4684NR-IPIB/83686/4/12/ans/" alt="what is my ip" style="border:0px;" /></a></div></noscript>
+                    </div>
+                    <!-- End: TraceMyIP.org Service Code //-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <i class="fa fa-copyright" aria-hidden="true"></i> Copyright 2017 - Indiom Bootstrap Theme by <a href="http://www.webmaddy.com" target="_blank">Webmaddy Web Studio</a>
+                </div>
+            </div>
+        </div>
+    </div><!--/.copyright -->
+    <!-- back to top -->
+    <a href="#" id="back-to-top" class="show">
+        <img src="template/assets/img/top-icon.png" alt="top arrow">
+    </a>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="template/assets/plugins/jquery-2.2.4.min.js"></script>
+    <script src="template/assets/plugins/jquery.easing.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="template/assets/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="template/assets/plugins/OwlCarousel2-2.2.0/dist/owl.carousel.min.js"></script>
+    <script src="template/assets/plugins/WOW/dist/wow.min.js"></script>
+    <script src="template/assets/plugins/waypoints.min.js"></script>
+    <script src="template/assets/plugins/Counter-Up-master/jquery.counterup.min.js"></script>
+    <script src="template/assets/plugins/parallax.js-1.4.2/parallax.min.js"></script>
+    <script src="template/assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script src="template/assets/plugins/jquery-validation-1.15.0/dist/jquery.validate.min.js"></script>
+    <script src="template/assets/plugins/sscr.js"></script>
+    <script src="template/mail/contact.js"></script>
+    <script src="template/assets/js/default.js"></script>
+</body>
+</html>
