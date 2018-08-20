@@ -64,7 +64,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    @*<img src="/template/assets/img/logo.png" class="img-responsive" alt="brand logo">*@
+                    
                 </a>
             </div>
 
@@ -73,133 +73,130 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="scrollto" href="#home">Home</a></li>
                     <li><a class="scrollto" href="#about">About</a></li>
-                    @*
-                    <li><a class="scrollto" href="#process">Process</a></li>*@
+                    <li><a class="scrollto" href="#process">Process</a></li>
                     <li><a class="scrollto" href="#works">Companies</a></li>
                     <li><a class="scrollto" href="#clients">References</a></li>
-                    @*
-                    <li><a class="scrollto" href="#pricing">Pricing</a></li>*@
+                    <li><a class="scrollto" href="#pricing">Pricing</a></li>
                     <li><a class="scrollto" href="#contact">Contact</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 
-    <!-- header -->
-    <div class="header" id="home" style="background-image: url('/template/assets/img/header.jpg');">
-        <div class="overlay"></div>
-        <div class="header-content">
+    <div id="Container" data-bind="with: info.generalInfo">
+        <!-- header -->
+        <div class="header" id="home" style="background-image: url('https://rogergomez.z13.web.core.windows.net/template/assets/img/header.jpg');">
+            <div class="overlay"></div>
+            <div class="header-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1 data-bind="text: name">
+                            @Model.GeneralInfo.Name - @Model.GeneralInfo.Title</h1>
+                            <span class="line"></span>
+                            <p>
+
+                            </p>
+                            <a href="#" class="btn btn-primary">Check it out :)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-down hidden-xs">
+                <div class='icon-scroll'></div>
+            </div>
+        </div>
+
+        <!-- features -->
+        <div class="section section-features" id="about" data-bind="with: info.generalInfo">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>@Model.GeneralInfo.Name - @Model.GeneralInfo.Title</h1>
-                        <span class="line"></span>
-                        <p>
-
+                        <h2 data-bind="text: subtitle"></h2>
+                        <p data-bind="html: summary">
                         </p>
-                        <a href="#" class="btn btn-primary">Check it out :)</a>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-down hidden-xs">
-            <div class='icon-scroll'></div>
-        </div>
-    </div>
+                    <div data-bind="foreach: info.aptitudes">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="feature-box wow fadeInUp" data-wow-delay="200ms">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" data-bind="attr:{src: iconPath, alt: title}">
+                                        </a>    
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading" data-bind="text: title"></h4>
+                                        <p data-bind="text: description">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.col-md-4 -->
+                    </div>
 
-    <!-- features -->
-    <div class="section section-features" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2>@Model.GeneralInfo.Subtitle</h2>
-                    <p>
-                        @Html.Raw(Model.GeneralInfo.Summary)
-                    </p>
-                </div>
-                @foreach (var aptitude in Model.Aptitudes)
-                {
-                <div class="col-md-4 col-sm-6">
-                    <div class="feature-box wow fadeInUp" data-wow-delay="200ms">
-                        <div class="media">
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="media-object" src="~/@aptitude.IconPath" alt=@aptitude.Title>
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">@aptitude.Title</h4>
-                                <p>
-                                    @aptitude.Description
-                                </p>
-                            </div>
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </div><!-- /.section -->
+        <!-- numbers -->
+        <div class="section section-numbers" data-bind="with: info.generalInfo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="number-box text-center">
+                            <h3><span class="counter" data-bind="text: yearsWorkingSoftware"></span>+</h3>
+                            <p>Years working in Software Development</p>
                         </div>
                     </div>
-                </div><!-- /.col-md-4 -->
-                }
-
-            </div><!-- /.row -->
-        </div><!-- /.container -->
-    </div><!-- /.section -->
-    <!-- numbers -->
-    <div class="section section-numbers">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="number-box text-center">
-                        <h3><span class="counter">@Model.GeneralInfo.YearsWorkingSoftware</span>+</h3>
-                        <p>Years working in Software Development</p>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="number-box text-center">
+                            <h3><span class="counter">@Model.GeneralInfo.YearsTechnicalLead</span>+</h3>
+                            <p>Years as Technical Lead</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="number-box text-center">
-                        <h3><span class="counter">@Model.GeneralInfo.YearsTechnicalLead</span>+</h3>
-                        <p>Years as Technical Lead</p>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="number-box text-center">
+                            <h3><span class="counter">@Model.GeneralInfo.ClientsFreelanceCount</span>+</h3>
+                            <p>Clients as Freelance</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="number-box text-center">
-                        <h3><span class="counter">@Model.GeneralInfo.ClientsFreelanceCount</span>+</h3>
-                        <p>Clients as Freelance</p>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="number-box text-center no-border">
+                            <h3><span class="counter">@Model.GeneralInfo.DynamicsCRMProjectsDelivered</span>+</h3>
+                            <p>Dynamics CRM Projects Delivered</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="number-box text-center no-border">
-                        <h3><span class="counter">@Model.GeneralInfo.DynamicsCRMProjectsDelivered</span>+</h3>
-                        <p>Dynamics CRM Projects Delivered</p>
-                    </div>
-                </div>
-            </div><!-- /.row -->
-        </div>
-    </div>
-
-    <!-- team -->
-    <div class="section section-team">
-        <div class="container">
-            <div class="row">
-                <ul class="skills">
-                    @{ int i = 0; }
-                    <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
-                        @foreach (var skill in Model.Skills)
-                        {
-                        @if (i > 0 && i % 9 == 0)
-                        {
-                        // close the div and start again
-                        @:
-                    </ul>
-                    <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
-                        }
-                        <li class="progress" style="opacity: 1; left: 0px;">
-                            <div class="progress-bar" data-width="85" style="width: @skill.PercentageExpertise%;">
-                                @skill.SkillName
-                            </div>
-                        </li>
-                        i++;
-                        }
-                    </ul>
+                </div><!-- /.row -->
             </div>
         </div>
-    </div><!-- /.container -->
+
+        <!-- team -->
+        <div class="section section-team">
+            <div class="container">
+                <div class="row">
+                    <ul class="skills">
+                        @{ int i = 0; }
+                        <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
+                            @foreach (var skill in Model.Skills)
+                            {
+                            @if (i > 0 && i % 9 == 0)
+                            {
+                            // close the div and start again
+                            @:
+                        </ul>
+                        <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
+                            }
+                            <li class="progress" style="opacity: 1; left: 0px;">
+                                <div class="progress-bar" data-width="85" style="width: @skill.PercentageExpertise%;">
+                                    @skill.SkillName
+                                </div>
+                            </li>
+                            i++;
+                            }
+                        </ul>
+                </div>
+            </div>
+        </div><!-- /.container -->
     </div><!-- /.section -->
     <!-- works -->
     <div class="section section-works" id="works">
@@ -356,23 +353,25 @@
             </div>
         </div>
     </div><!-- /.section -->
+    </div>
+
     <!-- map -->
     <div class="section section-map no-margin-bottom no-margin-top" id="map">
     </div><!-- /.section -->
     <script>
-                function initMap() {
-                    var uluru = { lat: 6.237129, lng: -75.556054 };
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        scrollwheel: false,
-                        zoom: 16,
-                        center: uluru,
-                        styles: [{ "featureType": "all", "elementType": "all", "stylers": [{ "hue": "#e7ecf0" }] }, { "featureType": "administrative.locality", "elementType": "all", "stylers": [{ "lightness": "6" }, { "color": "#4a148c" }, { "weight": "0.01" }, { "gamma": "1" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "hue": "#7300ff" }] }, { "featureType": "road", "elementType": "labels.text", "stylers": [{ "color": "#4a148c" }, { "weight": "0.01" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "simplified" }, { "saturation": "-45" }, { "color": "#4a148c" }, { "lightness": "57" }] }]
-                    });
-                    var marker = new google.maps.Marker({
-                        position: uluru,
-                        map: map
-                    });
-                }
+        function initMap() {
+            var uluru = { lat: 6.237129, lng: -75.556054 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                scrollwheel: false,
+                zoom: 16,
+                center: uluru,
+                styles: [{ "featureType": "all", "elementType": "all", "stylers": [{ "hue": "#e7ecf0" }] }, { "featureType": "administrative.locality", "elementType": "all", "stylers": [{ "lightness": "6" }, { "color": "#4a148c" }, { "weight": "0.01" }, { "gamma": "1" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "hue": "#7300ff" }] }, { "featureType": "road", "elementType": "labels.text", "stylers": [{ "color": "#4a148c" }, { "weight": "0.01" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "simplified" }, { "saturation": "-45" }, { "color": "#4a148c" }, { "lightness": "57" }] }]
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDryG820sn6a0ptMga9C_qFjHejm1LSv2k&callback=initMap">
@@ -425,5 +424,9 @@
     <script src="template/assets/plugins/sscr.js"></script>
     <script src="template/mail/contact.js"></script>
     <script src="template/assets/js/default.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>

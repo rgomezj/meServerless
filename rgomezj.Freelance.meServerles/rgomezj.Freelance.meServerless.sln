@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rgomezj.Freelance.meServerless.UI", "rgomezj.Freelance.meServerless.UI\rgomezj.Freelance.meServerless.UI.csproj", "{C9A6158A-AC59-4636-891E-16833003F90B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rgomezj.Freelance.meServerless.UI", "rgomezj.Freelance.meServerless.UI\rgomezj.Freelance.meServerless.UI.csproj", "{C9A6158A-AC59-4636-891E-16833003F90B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rgomezj.Freelance.meServerless.API", "rgomezj.Freelance.meServerless.API\rgomezj.Freelance.meServerless.API.csproj", "{664BE612-3280-45D6-83BA-D818A1753815}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C9A6158A-AC59-4636-891E-16833003F90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9A6158A-AC59-4636-891E-16833003F90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9A6158A-AC59-4636-891E-16833003F90B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{664BE612-3280-45D6-83BA-D818A1753815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{664BE612-3280-45D6-83BA-D818A1753815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{664BE612-3280-45D6-83BA-D818A1753815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{664BE612-3280-45D6-83BA-D818A1753815}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
