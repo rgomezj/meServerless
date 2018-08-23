@@ -48,7 +48,6 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-
     <!-- pre loader -->
     <div class="se-pre-con"></div>
 
@@ -64,7 +63,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    
+
                 </a>
             </div>
 
@@ -83,30 +82,31 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div id="Container" data-bind="with: info.generalInfo">
-        <!-- header -->
-        <div class="header" id="home" style="background-image: url('https://rogergomez.z13.web.core.windows.net/template/assets/img/header.jpg');">
-            <div class="overlay"></div>
-            <div class="header-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h1 data-bind="text: name">
-                            @Model.GeneralInfo.Name - @Model.GeneralInfo.Title</h1>
-                            <span class="line"></span>
-                            <p>
 
-                            </p>
-                            <a href="#" class="btn btn-primary">Check it out :)</a>
-                        </div>
+    <!-- header -->
+    <div class="header" id="home" style="background-image: url('https://rogergomez.z13.web.core.windows.net/template/assets/img/header.jpg');">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <div class="container">
+                <div class="row" id="ContainerApp">
+                    <div class="col-md-12 text-center" data-bind="with: info.generalInfo">
+                        <h1 data-bind="text: name">
+                            @Model.GeneralInfo.Name - @Model.GeneralInfo.Title
+                        </h1>
+                        <span class="line"></span>
+                        <p>
+
+                        </p>
+                        <a href="#" class="btn btn-primary">Check it out :)</a>
                     </div>
                 </div>
             </div>
-            <div class="scroll-down hidden-xs">
-                <div class='icon-scroll'></div>
-            </div>
         </div>
-
+        <div class="scroll-down hidden-xs">
+            <div class='icon-scroll'></div>
+        </div>
+    </div>
+    <div id="ContainerApp2">
         <!-- features -->
         <div class="section section-features" id="about" data-bind="with: info.generalInfo">
             <div class="container">
@@ -123,7 +123,7 @@
                                     <div class="media-left">
                                         <a href="#">
                                             <img class="media-object" data-bind="attr:{src: iconPath, alt: title}">
-                                        </a>    
+                                        </a>
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading" data-bind="text: title"></h4>
@@ -144,25 +144,25 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center">
-                            <h3><span class="counter" data-bind="text: yearsWorkingSoftware"></span>+</h3>
+                            <h3><span data-bind="text: yearsWorkingSoftware"></span>+</h3>
                             <p>Years working in Software Development</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center">
-                            <h3><span class="counter">@Model.GeneralInfo.YearsTechnicalLead</span>+</h3>
+                            <h3><span data-bind="text: yearsTechnicalLead"></span>+</h3>
                             <p>Years as Technical Lead</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center">
-                            <h3><span class="counter">@Model.GeneralInfo.ClientsFreelanceCount</span>+</h3>
+                            <h3><span data-bind="text: clientsFreelanceCount"></span>+</h3>
                             <p>Clients as Freelance</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center no-border">
-                            <h3><span class="counter">@Model.GeneralInfo.DynamicsCRMProjectsDelivered</span>+</h3>
+                            <h3><span data-bind="text: dynamicsCRMProjectsDelivered"></span>+</h3>
                             <p>Dynamics CRM Projects Delivered</p>
                         </div>
                     </div>
@@ -173,186 +173,163 @@
         <!-- team -->
         <div class="section section-team">
             <div class="container">
+                <div class="row skills" data-bind="foreach: info.skills">
+                    <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
+                        <li class="progress" style="opacity: 1; left: 0px;">
+                            <div class="progress-bar" data-width="85" data-bind="style: { width: percentageExpertiseWidth }">
+                                <span data-bind="text: skillName"></span>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div><!-- /.container -->
+        <!-- works -->
+        <div class="section section-works" id="works">
+            <div class="container">
                 <div class="row">
-                    <ul class="skills">
-                        @{ int i = 0; }
-                        <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
-                            @foreach (var skill in Model.Skills)
-                            {
-                            @if (i > 0 && i % 9 == 0)
-                            {
-                            // close the div and start again
-                            @:
-                        </ul>
-                        <ul class="col-md-6 col-sm-12 col-xs-12 wow fadeInLeft animated" style="visibility: visible;">
-                            }
-                            <li class="progress" style="opacity: 1; left: 0px;">
-                                <div class="progress-bar" data-width="85" style="width: @skill.PercentageExpertise%;">
-                                    @skill.SkillName
-                                </div>
-                            </li>
-                            i++;
-                            }
-                        </ul>
-                </div>
-            </div>
-        </div><!-- /.container -->
-    </div><!-- /.section -->
-    <!-- works -->
-    <div class="section section-works" id="works">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2>Companies I have worked for</h2>
-                    <p></p>
-                </div>
-                @foreach (var company in Model.Companies)
-                {
-                <div class="col-md-4 col-sm-6">
-                    <div class="work wow fadeInUp" data-wow-delay="200ms">
-                        <a class="gallery-work" href="template/assets/img/works/1-lg.jpg">
-                            <img src="~/@company.LogoPath" class="img-responsive" alt=@company.CompanyName>
-                            <div class="details">
-                                <h4>@company.CompanyName</h4>
-                                <p>@company.Position</p>
-                            </div><!-- details -->
-                        </a>
+                    <div class="col-md-12 text-center">
+                        <h2>Companies I have worked for</h2>
+                        <p></p>
                     </div>
-                </div>
-                }
-            </div>
-        </div>
-    </div><!-- /.section -->
-    <!-- testimonial -->
-    <div class="section section-testimonial" id="clients" data-parallax="scroll" data-image-src="/template/assets/img/client-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center wow fadeInUp" data-wow-delay="400ms">
-                    <h2>References</h2>
-                    <p>See opinions from clients and co-workers.</p>
-                    <div class="testimonials owl-carousel owl-theme" id="testimonials">
-
-                        @foreach (var reference in Model.References)
-                        {
-                        <div class="textimonial-box item">
-                            <div class="client">
-                                <div class="client-img" style="background-image: url(template/assets/img/clients/1.jpg);"></div>
-                                <h4>@reference.ReferenceName</h4>
-                                <a href="@reference.WebPage" target="_blank"><p style="font-weight:bold">@reference.ReferenceCompanyPosition</p></a>
-
-                            </div>
-                            <div class="testimonial-content">
-                                @reference.ReferenceDescription
+                    <div data-bind="foreach: info.companies">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="work wow fadeInUp" data-wow-delay="200ms">
+                                <a class="gallery-work" href="template/assets/img/works/1-lg.jpg">
+                                    <img data-bind="attr:{src: logoPath, alt: companyName}" class="img-responsive">
+                                    <div class="details">
+                                        <h4 data-bind="text: companyName"></h4>
+                                        <p data-bind="text: position"></p>
+                                    </div><!-- details -->
+                                </a>
                             </div>
                         </div>
-                        }
-
                     </div>
                 </div>
             </div>
-        </div><!-- /.container -->
-    </div>
+        </div><!-- /.section -->
+        <!-- testimonial -->
+        <div class="section section-testimonial" id="clients" data-parallax="scroll" data-image-src="/template/assets/img/client-bg.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center wow fadeInUp" data-wow-delay="400ms">
+                        <h2>References</h2>
+                        <p>See opinions from clients and co-workers.</p>
+                        <div class="testimonials owl-carousel owl-theme" id="testimonials" data-bind="foreach: info.references">
+                            <div class="textimonial-box item">
+                                <div class="client">
 
-    <!-- logos -->
-    <div class="section section-client-logo">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="client-logo text-center owl-carousel owl-theme" id="client-logos">
-                        @foreach (var technology in Model.Technologies)
-                        {
-                        <img src="~/@technology.LogoPath" class="img-responsive item" alt=@technology.TechnologyName>
-                        }
+                                    <h4 data-bind="text: referenceName"></h4>
+                                    <a data-bind="attr: { href: webPage }" target="_blank"><p style="font-weight:bold" data-bind="text: referenceCompanyPosition"></p></a>
+
+                                </div>
+                                <div class="testimonial-content" data-bind="text: referenceDescription">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div><!-- /.row -->
+            </div><!-- /.container -->
         </div>
-    </div>
+
+        <!-- logos -->
+        <div class="section section-client-logo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="client-logo text-center owl-carousel owl-theme" id="client-logos" data-bind="foreach: info.technologies">
+                            <img data-bind="attr:{src: logoPath, alt: technologyName}" class="img-responsive item">
+                        </div>
+                    </div>
+                </div><!-- /.row -->
+            </div>
+        </div>
 
 
-    <!-- contact -->
-    <div class="section section-contact no-margin-bottom" id="contact" style="background-image:url('/template/assets/img/contact-bg.png');">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 wow fadeIn" data-wow-delay="200ms">
-                    <h2>Say Hello</h2>
-                    <p>Reach out to me anytime and I will happily answer your questions.</p>
+        <!-- contact -->
+        <div class="section section-contact no-margin-bottom" id="contact" style="background-image:url('/template/assets/img/contact-bg.png');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 wow fadeIn" data-wow-delay="200ms">
+                        <h2>Say Hello</h2>
+                        <p>Reach out to me anytime and I will happily answer your questions.</p>
 
-                    <!-- showing contact form sent status -->
-                    <div id="submitMessage"></div>
+                        <!-- showing contact form sent status -->
+                        <div id="submitMessage"></div>
 
-                    <form class="contact-form" id="contact-form" method="post">
-                        @Html.AntiForgeryToken()
+                        <form class="contact-form" id="contact-form" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Your name :</label>
+                                        <input type="text" class="form-control" id="FromName" name="FromName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Your email :</label>
+                                        <input type="email" class="form-control" id="From" name="From" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="subject">Subject :</label>
+                                        <input type="text" class="form-control" id="Subject" name="Subject" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div><!-- /.row -->
+                            <div class="form-group">
+                                <label for="email">Your message :</label>
+                                <textarea class="form-control" id="Message" name="Message" required></textarea>
+                            </div>
+                            <div class="g-recaptcha" data-sitekey="6LcbSUoUAAAAAKiQa6-9K9V-j-xG1-M3JsQhnokp"></div>
+                            <div class="form-group">
+                                <input type="button" id="contact-form-submit" name="submit" value="Send Message" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6 contact-address text-center">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">Your name :</label>
-                                    <input type="text" class="form-control" id="FromName" name="FromName" required>
-                                </div>
+                            <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="500ms">
+                                <img class="icon" src="template/assets/img/icons/phone-call.png" alt="phone call">
+                                <h4>Contact Me</h4>
+                                <p>
+                                    @Model.GeneralInfo.Phone<br>
+                                    @Model.GeneralInfo.EmailAddress
+                                </p>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">Your email :</label>
-                                    <input type="email" class="form-control" id="From" name="From" required>
-                                </div>
+                            <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="800ms">
+                                <img class="icon" src="template/assets/img/icons/placeholder.png" alt="placeholder">
+                                <h4>Location</h4>
+                                <p>
+                                    @Model.GeneralInfo.Location<br>
+                                </p>
+                            </div>
+                            <div class="col-md-12 col-sm-4 wow fadeInUp" data-wow-delay="1200ms">
+                                <img class="icon" src="template/assets/img/icons/network.png" alt="network">
+                                <h4>On Social Media</h4>
+                                <ul class="list-inline list-social">
+                                    <li><a href="https://www.facebook.com/rogergomez780" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/in/roger-gomez-jaramillo-45236b19" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                    @*
+                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>*@
+                                    <li><a href="https://www.github.com/rgomezj" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                                    <li><a href="https://www.upwork.com/freelancers/~01cf02d33ccbefd80b" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="subject">Subject :</label>
-                                    <input type="text" class="form-control" id="Subject" name="Subject" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-
-                            </div>
-                        </div><!-- /.row -->
-                        <div class="form-group">
-                            <label for="email">Your message :</label>
-                            <textarea class="form-control" id="Message" name="Message" required></textarea>
-                        </div>
-                        <div class="g-recaptcha" data-sitekey="6LcbSUoUAAAAAKiQa6-9K9V-j-xG1-M3JsQhnokp"></div>
-                        <div class="form-group">
-                            <input type="button" id="contact-form-submit" name="submit" value="Send Message" class="btn btn-primary">
-                        </div>
-                    </form>
+                    </div><!-- /.col-md-6 -->
                 </div>
-
-                <div class="col-md-6 contact-address text-center">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="500ms">
-                            <img class="icon" src="template/assets/img/icons/phone-call.png" alt="phone call">
-                            <h4>Contact Me</h4>
-                            <p>
-                                @Model.GeneralInfo.Phone<br>
-                                @Model.GeneralInfo.EmailAddress
-                            </p>
-                        </div>
-                        <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="800ms">
-                            <img class="icon" src="template/assets/img/icons/placeholder.png" alt="placeholder">
-                            <h4>Location</h4>
-                            <p>
-                                @Model.GeneralInfo.Location<br>
-                            </p>
-                        </div>
-                        <div class="col-md-12 col-sm-4 wow fadeInUp" data-wow-delay="1200ms">
-                            <img class="icon" src="template/assets/img/icons/network.png" alt="network">
-                            <h4>On Social Media</h4>
-                            <ul class="list-inline list-social">
-                                <li><a href="https://www.facebook.com/rogergomez780" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/roger-gomez-jaramillo-45236b19" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                @*
-                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>*@
-                                <li><a href="https://www.github.com/rgomezj" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
-                                <li><a href="https://www.upwork.com/freelancers/~01cf02d33ccbefd80b" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!-- /.col-md-6 -->
             </div>
-        </div>
-    </div><!-- /.section -->
+        </div><!-- /.section -->
     </div>
 
     <!-- map -->
