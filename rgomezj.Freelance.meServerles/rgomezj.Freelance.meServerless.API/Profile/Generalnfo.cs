@@ -18,7 +18,15 @@ namespace rgomezj.Freelance.meServerless.API.Profile
 
         public string Location { get; set; }
 
-        public int YearsWorkingSoftware { get; set;}
+        public string NameAndTitle
+        {
+            get
+            {
+                return this.Name + " - " + this.Title;
+            }
+        }
+
+        public int YearsWorkingSoftware { get; set; }
 
         public int YearsTechnicalLead { get; set; }
 

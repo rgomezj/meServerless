@@ -12,10 +12,7 @@ $(window).scroll(function() {
 });
 
 $( document ).ready(function() {
-  $('.counter').counterUp({
-   	delay: 20,
-    time: 1500
-  });
+ 
   $('body').scrollspy({
     target: '.navbar-fixed-top',
     offset: 80
@@ -27,41 +24,7 @@ $( document ).ready(function() {
     }, 1250, 'easeInOutExpo');
     event.preventDefault();
   });
-
-   //Client Speak Owl Carousel
-  $("#testimonials").owlCarousel({
-   	items: 1,
-   	animateOut: 'slideOutDown',
-    animateIn: 'flipInX',
-    smartSpeed:450,
-    autoplay: true,
-    autoplayTimeout: 4000,
-    loop: true,
-    autoplayHoverPause: true
-  });
-  $("#client-logos").owlCarousel({
-   	items: 5,
-    autoplay: true,
-    autoplayTimeout: 3000,
-    loop: true,
-    autoplayHoverPause: true,
-    dots: false,
-    margin: 60,
-    responsive:{
-        0:{
-            items:2,
-            margin: 30
-        },
-        768:{
-            items:5,
-            margin: 30
-        },
-        992:{
-            items:5,
-            margin: 60
-        }
-    }
-  });
+  
   $("#team").owlCarousel({
     items: 3,
     autoplay: true,
@@ -122,7 +85,7 @@ $( document ).ready(function() {
     errorLabelContainer: '.error-msg'
   });
   
-new WOW().init();
+
 });
 
   

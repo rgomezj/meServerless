@@ -6,12 +6,14 @@ $(function () {
         debugger;
         isLoading = ko.observable(false);
 
+        _self = this;
+
         info = ko.mapping.fromJS({ skills: ko.observableArray(), companies: ko.observableArray(), generalInfo: ko.observable(), references: ko.observableArray(), technologies: ko.observableArray(), aptitudes: ko.observableArray() });
 
         var getInfo = function (applyBindings) {
             isLoading(true);
             $.getJSON(common.API.INFO, function (data) {
-                ko.mapping.fromJS(data, mapping, info);
+                ko.mapping.fromJS(data, info);
                 isLoading(false);
                 applyBindings();
             })
@@ -32,16 +34,53 @@ $(function () {
             }
         }
 
-        var createFreelanceInfo = function (freelanceInfo) {
-            var self = this;
-            var result = ko.mapping.fromJS(freelanceInfo);
-            result.hasChanged = ko.observable(false);
-            return result;
-        };
-        /* END extending the mapping*/
+        var renderedHandlerTechnologies = function (elements, data) {
+            if ($('#client-logos').children().length === _self.info.technologies().length) {
+                $("#client-logos").owlCarousel({
+                    items: 5,
+                    autoplay: true,
+                    autoplayTimeout: 3000,
+                    loop: true,
+                    autoplayHoverPause: true,
+                    dots: false,
+                    margin: 60,
+                    responsive: {
+                        0: {
+                            items: 2,
+                            margin: 30
+                        },
+                        768: {
+                            items: 5,
+                            margin: 30
+                        },
+                        992: {
+                            items: 5,
+                            margin: 60
+                        }
+                    }
+                });
+            }
+        }
 
+        var renderedHandlerReferences = function (elements, data) {
+            if ($('#testimonials').children().length === _self.info.references().length) {
+                $("#testimonials").owlCarousel({
+                    items: 1,
+                    animateOut: 'slideOutDown',
+                    animateIn: 'flipInX',
+                    smartSpeed: 450,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    loop: true,
+                    autoplayHoverPause: true
+                });
+            }
+        }
+        
         return {
-            GetInfo: getInfo
+            GetInfo: getInfo,
+            RenderedHandlerTechnologies: renderedHandlerTechnologies,
+            RenderedHandlerReferences: renderedHandlerReferences
         };
 
     }(common, $, ko);
@@ -55,18 +94,16 @@ $(function () {
             if (!ko.dataFor(document.getElementById("ContainerApp"))) {
                 ko.applyBindings(freelanceApp.mainPageViewModel, document.getElementById("ContainerApp"));
                 ko.applyBindings(freelanceApp.mainPageViewModel, document.getElementById("ContainerApp2"));
-
-                $("#testimonials").owlCarousel({
-                    items: 1,
-                    animateOut: 'slideOutDown',
-                    animateIn: 'flipInX',
-                    smartSpeed: 450,
-                    autoplay: true,
-                    autoplayTimeout: 4000,
-                    loop: true,
-                    autoplayHoverPause: true
-                });
             }
         }
     }
 });
+
+ko.bindingHandlers.counterUp = {
+    init: function (elem) {
+        $(elem).counterUp({
+            delay: 20,
+            time: 1500
+        });
+    }
+}

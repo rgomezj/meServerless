@@ -72,10 +72,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="scrollto" href="#home">Home</a></li>
                     <li><a class="scrollto" href="#about">About</a></li>
-                    <li><a class="scrollto" href="#process">Process</a></li>
                     <li><a class="scrollto" href="#works">Companies</a></li>
                     <li><a class="scrollto" href="#clients">References</a></li>
-                    <li><a class="scrollto" href="#pricing">Pricing</a></li>
                     <li><a class="scrollto" href="#contact">Contact</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -90,9 +88,7 @@
             <div class="container">
                 <div class="row" id="ContainerApp">
                     <div class="col-md-12 text-center" data-bind="with: info.generalInfo">
-                        <h1 data-bind="text: name">
-                            @Model.GeneralInfo.Name - @Model.GeneralInfo.Title
-                        </h1>
+                        <h1 data-bind="text: nameAndTitle"></h1>
                         <span class="line"></span>
                         <p>
 
@@ -144,25 +140,25 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center">
-                            <h3><span data-bind="text: yearsWorkingSoftware"></span>+</h3>
+                            <h3><span class="counter" data-bind="text: yearsWorkingSoftware, counterUp"></span>+</h3>
                             <p>Years working in Software Development</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center">
-                            <h3><span data-bind="text: yearsTechnicalLead"></span>+</h3>
+                            <h3><span class="counter" data-bind="text: yearsTechnicalLead, counterUp"></span>+</h3>
                             <p>Years as Technical Lead</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center">
-                            <h3><span data-bind="text: clientsFreelanceCount"></span>+</h3>
+                            <h3><span class="counter" data-bind="text: clientsFreelanceCount, counterUp"></span>+</h3>
                             <p>Clients as Freelance</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="number-box text-center no-border">
-                            <h3><span data-bind="text: dynamicsCRMProjectsDelivered"></span>+</h3>
+                            <h3><span class="counter" data-bind="text: dynamicsCRMProjectsDelivered, counterUp"></span>+</h3>
                             <p>Dynamics CRM Projects Delivered</p>
                         </div>
                     </div>
@@ -216,13 +212,11 @@
                     <div class="col-md-12 text-center wow fadeInUp" data-wow-delay="400ms">
                         <h2>References</h2>
                         <p>See opinions from clients and co-workers.</p>
-                        <div class="testimonials owl-carousel owl-theme" id="testimonials" data-bind="foreach: info.references">
+                        <div class="testimonials owl-carousel owl-theme" id="testimonials" data-bind="foreach: { data: info.references, afterRender: RenderedHandlerReferences}">
                             <div class="textimonial-box item">
                                 <div class="client">
-
                                     <h4 data-bind="text: referenceName"></h4>
                                     <a data-bind="attr: { href: webPage }" target="_blank"><p style="font-weight:bold" data-bind="text: referenceCompanyPosition"></p></a>
-
                                 </div>
                                 <div class="testimonial-content" data-bind="text: referenceDescription">
                                 </div>
@@ -238,10 +232,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="client-logo text-center owl-carousel owl-theme" id="client-logos" data-bind="foreach: info.technologies">
-                            <img data-bind="attr:{src: logoPath, alt: technologyName}" class="img-responsive item">
+                        <div class="col-md-12">
+                            <div class="client-logo text-center owl-carousel owl-theme" id="client-logos" data-bind="foreach: { data: info.technologies, afterRender: RenderedHandlerTechnologies}">
+                                <img data-bind="attr:{src: $data.logoPath, alt: $data.technologyName}" class="img-responsive item">
+                            </div>
                         </div>
-                    </div>
                 </div><!-- /.row -->
             </div>
         </div>
@@ -259,7 +254,6 @@
                         <div id="submitMessage"></div>
 
                         <form class="contact-form" id="contact-form" method="post">
-                            @Html.AntiForgeryToken()
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -296,21 +290,22 @@
                         </form>
                     </div>
 
-                    <div class="col-md-6 contact-address text-center">
+                    <div class="col-md-6 contact-address text-center" data-bind="with: info.generalInfo">
                         <div class="row">
                             <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="500ms">
                                 <img class="icon" src="template/assets/img/icons/phone-call.png" alt="phone call">
                                 <h4>Contact Me</h4>
-                                <p>
-                                    @Model.GeneralInfo.Phone<br>
-                                    @Model.GeneralInfo.EmailAddress
+                                <p data-bind="text: phone">
+
+                                </p>
+                                <p data-bind="text: emailAddress">
                                 </p>
                             </div>
                             <div class="col-md-6 col-sm-4 wow fadeInUp" data-wow-delay="800ms">
                                 <img class="icon" src="template/assets/img/icons/placeholder.png" alt="placeholder">
                                 <h4>Location</h4>
-                                <p>
-                                    @Model.GeneralInfo.Location<br>
+                                <p data-bind="text: location">
+                                    <br>
                                 </p>
                             </div>
                             <div class="col-md-12 col-sm-4 wow fadeInUp" data-wow-delay="1200ms">
@@ -319,8 +314,6 @@
                                 <ul class="list-inline list-social">
                                     <li><a href="https://www.facebook.com/rogergomez780" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
                                     <li><a href="https://www.linkedin.com/in/roger-gomez-jaramillo-45236b19" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                    @*
-                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>*@
                                     <li><a href="https://www.github.com/rgomezj" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
                                     <li><a href="https://www.upwork.com/freelancers/~01cf02d33ccbefd80b" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
                                 </ul>
