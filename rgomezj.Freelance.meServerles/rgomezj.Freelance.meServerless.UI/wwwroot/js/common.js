@@ -8,7 +8,8 @@
     common.PAGETITLES = {};
     
     /*API URL Constants*/
-    common.API.INFO = "http://localhost:7071/api/FreelanceInfo";
+    common.API.INFO = "";
+    common.API.SENDEMAIL = "";
     common.PAGETITLES.INDEX = "Roger Gomez";
     
     common.ShowProgressMessage = function (message) {
@@ -27,9 +28,30 @@
         });
     }
 
+    common.setApiInfo = function () {
+        common.getApiBase
+        common.API.INFO = common.getApiBase() + "FreelanceInfo";
+        common.API.SENDEMAIL = common.getApiBase() + "SendEmail";
+    }
+
+    common.getApiBase = function () {
+        if (common.isLocal()) {
+            return "http://localhost:7071/api/";
+        }
+        else {
+            return "https://mefreelancefunctionapp.azurewebsites.net/api/";
+        }
+    }
+
+    common.isLocal = function () {
+        return window.document.location.href.toUpperCase().indexOf("LOCALHOST") > -1;
+    }
+
     common.HideProgressMessage = function () {
         $("#paragraph-dialog-message").html(PROGRESSMESSAGE);
         $("#dialog-message").dialog("close");
     }
     return common;
 })();
+
+common.setApiInfo();

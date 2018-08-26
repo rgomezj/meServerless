@@ -11,7 +11,7 @@ $('#contact-form-submit').on('click', function () {
             firstName = name.split(' ').slice(0, -1).join(' ');
         }
         $.ajax({
-            url: "./Index",
+            url: common.API.SENDEMAIL,
             type: "POST",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("XSRF-TOKEN",
