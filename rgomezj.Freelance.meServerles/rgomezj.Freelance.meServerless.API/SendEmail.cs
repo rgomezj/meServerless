@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System;
 using rgomezj.Freelance.meServerless.Services;
 using Microsoft.Extensions.Configuration;
+using System.Web;
+using System.Linq;
 
 namespace rgomezj.Freelance.meServerless.API
 {
@@ -25,18 +27,25 @@ namespace rgomezj.Freelance.meServerless.API
 
             var config = InitConfiguration(context);
 
-            EmailMessage emailMessage = Deserialize<EmailMessage>(new StreamReader(req.Body).ReadToEnd());
-            CaptchaSettings captchaSettingsConfig = Deserialize<CaptchaSettings>(GetConfigVariable("captchaSettings", config));
-            EmailSettings emailSettingsConfig = Deserialize<EmailSettings>(GetConfigVariable("emailSettings", config));
+            string requestFormValues = new StreamReader(req.Body).ReadToEnd();
+            string message = GetSerializedBody(requestFormValues);
+
+            EmailMessage emailMessage = Deserialize<EmailMessage>(message);
+
+            string captchaSettings = GetConfigVariable("captchaSettings", config);
+            string emailSettings = GetConfigVariable("emailSettings", config);
+            CaptchaSettings captchaSettingsConfig = Deserialize<CaptchaSettings>(captchaSettings);
+            EmailSettings emailSettingsConfig = Deserialize<EmailSettings>(emailSettings);
 
             string errorMessage = string.Empty;
             bool success = true;
             GeneralInfo generalInfo = FreelanceInfo.GetGeneralInfo();
 
             CaptchaValidationService _captchaValidationService = new CaptchaValidationService(captchaSettingsConfig);
-            string captchaResponse = req.Form[captchaSettingsConfig.CaptchaResponseKey];
+            string captchaResponse = GetFormValue(requestFormValues, captchaSettingsConfig.CaptchaResponseKey);
+            
             string name = System.Net.WebUtility.HtmlEncode(emailMessage.FromName);
-
+            log.Info("Captcha response:" + captchaResponse);
             SendGridEmailService _emailService = new SendGridEmailService(emailSettingsConfig);
             var validationResult = await _captchaValidationService.IsValidCaptcha(captchaSettingsConfig.SecretKey, captchaResponse);
 
@@ -91,6 +100,21 @@ namespace rgomezj.Freelance.meServerless.API
             .AddEnvironmentVariables()
             .Build();
             return config;
+        }
+
+        public static string GetSerializedBody(string data)
+        {
+            var dataNvc = HttpUtility.ParseQueryString(data);
+            var dataCollection = dataNvc.AllKeys.ToDictionary(o => o, o => dataNvc[o]);
+            var jsonString = JsonConvert.SerializeObject(dataCollection);
+            return jsonString;
+        }
+
+        public static string GetFormValue(string data, string key)
+        {
+            var dataNvc = HttpUtility.ParseQueryString(data);
+            var value = dataNvc[key];
+            return value;
         }
     }
 }
