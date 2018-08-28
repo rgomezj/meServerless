@@ -15,6 +15,7 @@ using rgomezj.Freelance.meServerless.Services;
 using Microsoft.Extensions.Configuration;
 using System.Web;
 using System.Linq;
+using rgomezj.Freelance.meServerless.API.Functions;
 
 namespace rgomezj.Freelance.meServerless.API
 {
@@ -23,39 +24,35 @@ namespace rgomezj.Freelance.meServerless.API
         [FunctionName("SendEmail")]
         public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequest req, TraceWriter log, ExecutionContext context)
         {
-            log.Info("C# HTTP trigger function processed a request.");
+            #region Getting Request values and configuration
 
-            var config = InitConfiguration(context);
+            var config = Util.InitConfiguration(context);
 
             string requestFormValues = new StreamReader(req.Body).ReadToEnd();
-            string message = GetSerializedBody(requestFormValues);
+            string message = Util.GetSerializedBody(requestFormValues);
 
-            EmailMessage emailMessage = Deserialize<EmailMessage>(message);
+            EmailMessage emailMessage = Util.Deserialize<EmailMessage>(message);
 
-            string captchaSettings = GetConfigVariable("captchaSettings", config);
-            string emailSettings = GetConfigVariable("emailSettings", config);
-            CaptchaSettings captchaSettingsConfig = Deserialize<CaptchaSettings>(captchaSettings);
-            EmailSettings emailSettingsConfig = Deserialize<EmailSettings>(emailSettings);
-
-            string errorMessage = string.Empty;
-            bool success = true;
-            GeneralInfo generalInfo = FreelanceInfo.GetGeneralInfo();
+            string captchaSettings = Util.GetConfigVariable("captchaSettings", config);
+            string emailSettings = Util.GetConfigVariable("emailSettings", config);
+            CaptchaSettings captchaSettingsConfig = Util.Deserialize<CaptchaSettings>(captchaSettings);
+            EmailSettings emailSettingsConfig = Util.Deserialize<EmailSettings>(emailSettings);
 
             CaptchaValidationService _captchaValidationService = new CaptchaValidationService(captchaSettingsConfig);
-            string captchaResponse = GetFormValue(requestFormValues, captchaSettingsConfig.CaptchaResponseKey);
+            string captchaResponse = Util.GetFormValue(requestFormValues, captchaSettingsConfig.CaptchaResponseKey);
             
-            string name = System.Net.WebUtility.HtmlEncode(emailMessage.FromName);
-            log.Info("Captcha response:" + captchaResponse);
             SendGridEmailService _emailService = new SendGridEmailService(emailSettingsConfig);
+
+            #endregion
+
             var validationResult = await _captchaValidationService.IsValidCaptcha(captchaSettingsConfig.SecretKey, captchaResponse);
+            string errorMessage = string.Empty;
+            bool success = true;
 
             if (validationResult)
             {
-                log.Info("Email Address:" + generalInfo.EmailAddress);
-                log.Info("Email settings:" + emailSettingsConfig.ApiKey);
-                log.Info("Email settings user:" + emailSettingsConfig.UserName);
-                log.Info("Email settings SMTP:" + emailSettingsConfig.SmtpServer);
-                log.Info("Email settings Password:" + emailSettingsConfig.Password);
+                string name = System.Net.WebUtility.HtmlEncode(emailMessage.FromName);
+                GeneralInfo generalInfo = FreelanceInfo.GetGeneralInfo();
                 emailMessage.To = generalInfo.EmailAddress;
                 emailMessage.ToName = generalInfo.Name;
                 emailMessage.Message = emailMessage.Message + Environment.NewLine + emailMessage.FromName + Environment.NewLine + emailMessage.From;
@@ -75,51 +72,6 @@ namespace rgomezj.Freelance.meServerless.API
                 success = false;
             }
             return new JsonResult(new { success, errorMessage });
-        }
-
-        public static string GetConfigVariable(string configKey, IConfiguration configuration)
-        {
-            string result = Environment.GetEnvironmentVariable(configKey);
-            if (string.IsNullOrEmpty(result) && configuration != null)
-            {
-                result = configuration.GetSection(configKey).Value;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Allows to deserialize an object of the given type. In case the serialization method changes, would be changed only here
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static T Deserialize<T>(string json) {
-            return JsonConvert.DeserializeObject<T>(json);
-        }
-
-        public static IConfiguration InitConfiguration(ExecutionContext context)
-        {
-            var config = new ConfigurationBuilder()
-            .SetBasePath(context.FunctionAppDirectory)
-            .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables()
-            .Build();
-            return config;
-        }
-
-        public static string GetSerializedBody(string data)
-        {
-            var dataNvc = HttpUtility.ParseQueryString(data);
-            var dataCollection = dataNvc.AllKeys.ToDictionary(o => o, o => dataNvc[o]);
-            var jsonString = JsonConvert.SerializeObject(dataCollection);
-            return jsonString;
-        }
-
-        public static string GetFormValue(string data, string key)
-        {
-            var dataNvc = HttpUtility.ParseQueryString(data);
-            var value = dataNvc[key];
-            return value;
         }
     }
 }
