@@ -6,7 +6,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
-using rgomezj.Freelance.meServerless.API.Profile;
+using rgomezj.Freelance.meServerless.Core;
 using rgomezj.Freelance.meServerless.API.ViewModels;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -51,6 +51,11 @@ namespace rgomezj.Freelance.meServerless.API
 
             if (validationResult)
             {
+                log.Info("Email Address:" + generalInfo.EmailAddress);
+                log.Info("Email settings:" + emailSettingsConfig.ApiKey);
+                log.Info("Email settings user:" + emailSettingsConfig.UserName);
+                log.Info("Email settings SMTP:" + emailSettingsConfig.SmtpServer);
+                log.Info("Email settings Password:" + emailSettingsConfig.Password);
                 emailMessage.To = generalInfo.EmailAddress;
                 emailMessage.ToName = generalInfo.Name;
                 emailMessage.Message = emailMessage.Message + Environment.NewLine + emailMessage.FromName + Environment.NewLine + emailMessage.From;

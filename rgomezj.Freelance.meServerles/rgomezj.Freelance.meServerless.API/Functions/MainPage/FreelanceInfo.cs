@@ -6,10 +6,10 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
-using rgomezj.Freelance.meServerless.API.Profile;
 using rgomezj.Freelance.meServerless.API.ViewModels;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using rgomezj.Freelance.meServerless.Core;
 
 namespace rgomezj.Freelance.meServerless.API
 {

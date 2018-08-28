@@ -1,4 +1,4 @@
-﻿using rgomezj.Freelance.meServerless.API.Profile;
+﻿using rgomezj.Freelance.meServerless.Core;
 using System;
 using System.Collections.Generic;
 

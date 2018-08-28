@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace rgomezj.Freelance.meServerless.API
+namespace rgomezj.Freelance.meServerless.Core
 {
     public class EmailMessage
     {

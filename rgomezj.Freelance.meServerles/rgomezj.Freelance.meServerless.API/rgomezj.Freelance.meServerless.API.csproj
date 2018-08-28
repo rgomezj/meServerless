@@ -18,6 +18,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="Settings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\rgomezj.Freelance.meServerless.Core\rgomezj.Freelance.meServerless.Core.csproj" />
   </ItemGroup>
 </Project>

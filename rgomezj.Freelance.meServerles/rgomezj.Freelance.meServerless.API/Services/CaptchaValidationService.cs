@@ -8,6 +8,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using rgomezj.Freelance.meServerless.Core;
 
 namespace rgomezj.Freelance.meServerless.Services
 {

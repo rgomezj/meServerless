@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace rgomezj.Freelance.meServerless.API.Profile
+namespace rgomezj.Freelance.meServerless.Core
 {
     public class Company
     {
