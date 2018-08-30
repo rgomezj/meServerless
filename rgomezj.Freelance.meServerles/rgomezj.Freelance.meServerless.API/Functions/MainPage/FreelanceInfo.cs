@@ -1,4 +1,3 @@
-
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -10,14 +9,20 @@ using rgomezj.Freelance.meServerless.API.ViewModels;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using rgomezj.Freelance.meServerless.Core;
+using rgomezj.Freelance.meServerless.API.Functions;
+using Microsoft.Extensions.Configuration;
 
 namespace rgomezj.Freelance.meServerless.API
 {
     public static class FreelanceInfo
     {
         [FunctionName("FreelanceInfo")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, TraceWriter log)
+        public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, TraceWriter log, ExecutionContext context)
         {
+            IConfiguration config = Util.InitConfiguration(context);
+            Me.Data.Implementation.JSON.JSONGeneralInfoRepository generalRepository = new Me.Data.Implementation.JSON.JSONGeneralInfoRepository(new Me.Data.Implementation.JSON.Config.JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", config) });
+            GeneralInfo generalInfo = await generalRepository.GetEntity<GeneralInfo>();
+
             log.Info("C# HTTP trigger function processed a request.");
             FreelanceInfoViewModel info = new FreelanceInfoViewModel() {
                 GeneralInfo = GetGeneralInfo(),
@@ -33,6 +38,7 @@ namespace rgomezj.Freelance.meServerless.API
 
         public static GeneralInfo GetGeneralInfo()
         {
+            
             var result = JsonConvert.DeserializeObject<GeneralInfo>(@"{
               'ClientsFreelanceCount': '2',
               'DynamicsCRMProjectsDelivered': '10',
