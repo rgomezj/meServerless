@@ -11,21 +11,20 @@ using System.Collections.Generic;
 using rgomezj.Freelance.meServerless.Core;
 using rgomezj.Freelance.meServerless.API.Functions;
 using Microsoft.Extensions.Configuration;
+using rgomezj.Freelance.MeServerless.Data;
+using Indigo.Functions.Unity;
 
 namespace rgomezj.Freelance.meServerless.API
 {
     public static class FreelanceInfo
     {
         [FunctionName("FreelanceInfo")]
-        public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, TraceWriter log, ExecutionContext context)
-        {
-            IConfiguration config = Util.InitConfiguration(context);
-            Me.Data.Implementation.JSON.JSONGeneralInfoRepository generalRepository = new Me.Data.Implementation.JSON.JSONGeneralInfoRepository(new Me.Data.Implementation.JSON.Config.JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", config) });
-            GeneralInfo generalInfo = await generalRepository.GetEntity<GeneralInfo>();
-
+        public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req,
+            [Inject]IGeneralInfoRepository generalRepository, TraceWriter log, ExecutionContext context)
+        {  
             log.Info("C# HTTP trigger function processed a request.");
             FreelanceInfoViewModel info = new FreelanceInfoViewModel() {
-                GeneralInfo = GetGeneralInfo(),
+                GeneralInfo = await generalRepository.Get(),
                 Aptitudes = GetAptitudes(),
                 Companies = GetCompanies(),
                 References = GetReferences(),
@@ -36,24 +35,12 @@ namespace rgomezj.Freelance.meServerless.API
             return  (ActionResult)new OkObjectResult(info);
         }
 
-        public static GeneralInfo GetGeneralInfo()
+        public async static Task<GeneralInfo> GetGeneralInfo(ExecutionContext context)
         {
-            
-            var result = JsonConvert.DeserializeObject<GeneralInfo>(@"{
-              'ClientsFreelanceCount': '2',
-              'DynamicsCRMProjectsDelivered': '10',
-              'YearsTechnicalLead': '3',
-              'YearsWorkingSoftware': '11',
-              'Name': 'Roger Gomez',
-              'Title': 'Software Developer',
-              'Phone': '+57 3006318287',
-              'EmailAddress': 'rogergomez780@gmail.com',
-              'Location': 'Medellin, Colombia',
-              'Subtitle': 'Detail Oriented, Resourceful, Fast Learner',
-              'Summary': 'Expertise in software development (back end and front end), patterns, practices, and continuous integration. &#9658; 10+ years of experience working with enterprise databases including SQL Server and Oracle. &#9658; Worked within all aspects of the software development lifecycle. &#9658; A long record of working with customers and developers to successfully deliver solutions that meet business needs. &#9658; Extremely experienced using the Microsoft Stack.'
-            }
-            ");
-            return result;
+            IConfiguration config = Util.InitConfiguration(context);
+            Me.Data.Implementation.JSON.JSONGeneralInfoRepository generalRepository = new Me.Data.Implementation.JSON.JSONGeneralInfoRepository(new Me.Data.Implementation.JSON.Config.JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", config) });
+            GeneralInfo generalInfo = await generalRepository.GetEntity<GeneralInfo>();
+            return generalInfo;
         }
 
         public static List<Aptitude> GetAptitudes()

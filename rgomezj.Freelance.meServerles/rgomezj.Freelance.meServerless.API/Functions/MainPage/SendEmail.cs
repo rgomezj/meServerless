@@ -16,13 +16,15 @@ using Microsoft.Extensions.Configuration;
 using System.Web;
 using System.Linq;
 using rgomezj.Freelance.meServerless.API.Functions;
+using rgomezj.Freelance.MeServerless.Data;
+using Indigo.Functions.Unity;
 
 namespace rgomezj.Freelance.meServerless.API
 {
     public static class SendEmail
     {
         [FunctionName("SendEmail")]
-        public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequest req, TraceWriter log, ExecutionContext context)
+        public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequest req, [Inject]IGeneralInfoRepository generalRepository, TraceWriter log, ExecutionContext context)
         {
             #region Getting Request values and configuration
 
@@ -52,7 +54,7 @@ namespace rgomezj.Freelance.meServerless.API
             if (validationResult)
             {
                 string name = System.Net.WebUtility.HtmlEncode(emailMessage.FromName);
-                GeneralInfo generalInfo = FreelanceInfo.GetGeneralInfo();
+                GeneralInfo generalInfo = await FreelanceInfo.GetGeneralInfo(context);
                 emailMessage.To = generalInfo.EmailAddress;
                 emailMessage.ToName = generalInfo.Name;
                 emailMessage.Message = emailMessage.Message + Environment.NewLine + emailMessage.FromName + Environment.NewLine + emailMessage.From;
