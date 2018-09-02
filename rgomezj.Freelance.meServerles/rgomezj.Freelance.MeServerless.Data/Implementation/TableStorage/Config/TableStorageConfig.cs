@@ -4,12 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace rgomezj.Freelance.Me.Data.Implementation.JSON.Config
+namespace rgomezj.Freelance.Me.Data.Implementation.TableStorage.Config
 {
-    public class JSONDatabaseConfig
+    public class TableStorageConfig
     {
         public string ConnectionString { get; set; }
-
-        public JSONDBFiles Files { get; set; }
     }
 }

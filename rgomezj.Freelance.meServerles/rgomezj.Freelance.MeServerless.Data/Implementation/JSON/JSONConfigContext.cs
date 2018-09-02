@@ -14,7 +14,6 @@ namespace rgomezj.Freelance.Me.Data.Implementation.JSON
     {
         const string DATACONTAINER = "freelancepagedata";
         public string FileName { get; private set; }
-        private IEnumerable<CloudBlockBlob> Blobs;
         private CloudBlobContainer container;
 
         public JSONConfigContext(JSONDatabaseConfig config, string fileName)
@@ -28,17 +27,12 @@ namespace rgomezj.Freelance.Me.Data.Implementation.JSON
         public async Task<T> GetEntity<T>()
         {
             T result = default(T);
-            string typeName = typeof(T).FullName;
-
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(this.FileName);
 
             if (blockBlob != null)
             {
-                
-                    var resultString = await  blockBlob.DownloadTextAsync();
+                var resultString = await  blockBlob.DownloadTextAsync();
                 result = JsonConvert.DeserializeObject<T>(resultString);
-                
-
             }
             return result;
         }

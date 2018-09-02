@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using rgomezj.Freelance.Me.Data.Implementation.JSON;
 using rgomezj.Freelance.Me.Data.Implementation.JSON.Config;
+using rgomezj.Freelance.Me.Data.Implementation.TableStorage;
+using rgomezj.Freelance.Me.Data.Implementation.TableStorage.Config;
 using rgomezj.Freelance.meServerless.Core;
 using rgomezj.Freelance.meServerless.Services.Abstract;
 using rgomezj.Freelance.meServerless.Services.Implementation;
@@ -17,6 +19,7 @@ namespace rgomezj.Freelance.meServerless.API.Functions
 {
     public class Util
     {
+        const string STORAGECONNECTIONKEY = "StorageConnection";
         public static string GetConfigVariable(string configKey, IConfiguration configuration)
         {
             string result = Environment.GetEnvironmentVariable(configKey);
@@ -72,12 +75,21 @@ namespace rgomezj.Freelance.meServerless.API.Functions
                                                ref IEmailService _emailService,
                                                ref ICaptchaValidationService _captchaValidationService)
         {
-            generalInfoRepository = new JSONGeneralInfoRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
-            aptitudeRepository = new JSONAptitudeRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
-            companyRepository = new JSONCompanyRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
-            referenceRepository = new JSONReferenceRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
-            skillRepository = new JSONSkillRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
-            technologyRepository = new JSONTechnologyRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
+            string storageConnectionKey = Util.GetConfigVariable(STORAGECONNECTIONKEY, null);
+
+            generalInfoRepository = new TableGeneralInfoRepository(new TableStorageConfig() { ConnectionString = storageConnectionKey });
+            aptitudeRepository = new TableAptitudeRepository(new TableStorageConfig() { ConnectionString = storageConnectionKey });
+            companyRepository = new TableCompanyRepository(new TableStorageConfig() { ConnectionString = storageConnectionKey });
+            referenceRepository = new TableReferenceRepository(new TableStorageConfig() { ConnectionString = storageConnectionKey });
+            skillRepository = new TableSkillRepository(new TableStorageConfig() { ConnectionString = storageConnectionKey });
+            technologyRepository = new TableTechologyRepository(new TableStorageConfig() { ConnectionString = storageConnectionKey });
+            
+            // generalInfoRepository = new JSONGeneralInfoRepository(new JSONDatabaseConfig() { ConnectionString = storageConnectionKey });
+            //aptitudeRepository = new JSONAptitudeRepository(new JSONDatabaseConfig() { ConnectionString = storageConnectionKey });
+            //companyRepository = new JSONCompanyRepository(new JSONDatabaseConfig() { ConnectionString = storageConnectionKey });
+            //referenceRepository = new JSONReferenceRepository(new JSONDatabaseConfig() { ConnectionString = storageConnectionKey });
+            //skillRepository = new JSONSkillRepository(new JSONDatabaseConfig() { ConnectionString = storageConnectionKey });
+            //technologyRepository = new JSONTechnologyRepository(new JSONDatabaseConfig() { ConnectionString = storageConnectionKey });
 
             _emailService = new SendGridEmailService(Util.Deserialize<EmailSettings>(Util.GetConfigVariable("emailSettings", null)));
             _captchaValidationService = new CaptchaValidationService(Util.Deserialize<CaptchaSettings>(Util.GetConfigVariable("captchaSettings", null)));
