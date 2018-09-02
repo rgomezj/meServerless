@@ -1,6 +1,12 @@
 ﻿using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using rgomezj.Freelance.Me.Data.Implementation.JSON;
+using rgomezj.Freelance.Me.Data.Implementation.JSON.Config;
+using rgomezj.Freelance.meServerless.Core;
+using rgomezj.Freelance.meServerless.Services.Abstract;
+using rgomezj.Freelance.meServerless.Services.Implementation;
+using rgomezj.Freelance.MeServerless.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +61,26 @@ namespace rgomezj.Freelance.meServerless.API.Functions
             var dataNvc = HttpUtility.ParseQueryString(data);
             var value = dataNvc[key];
             return value;
+        }
+
+        public static void InitializeInstances(ref IGeneralInfoRepository generalInfoRepository,
+                                               ref IAptitudeRepository aptitudeRepository,
+                                               ref ICompanyRepository companyRepository,
+                                               ref IReferenceRepository referenceRepository,
+                                               ref ISkillRepository skillRepository,
+                                               ref ITechnologyRepository technologyRepository,
+                                               ref IEmailService _emailService,
+                                               ref ICaptchaValidationService _captchaValidationService)
+        {
+            generalInfoRepository = new JSONGeneralInfoRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
+            aptitudeRepository = new JSONAptitudeRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
+            companyRepository = new JSONCompanyRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
+            referenceRepository = new JSONReferenceRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
+            skillRepository = new JSONSkillRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
+            technologyRepository = new JSONTechnologyRepository(new JSONDatabaseConfig() { ConnectionString = Util.GetConfigVariable("StorageConnection", null) });
+
+            _emailService = new SendGridEmailService(Util.Deserialize<EmailSettings>(Util.GetConfigVariable("emailSettings", null)));
+            _captchaValidationService = new CaptchaValidationService(Util.Deserialize<CaptchaSettings>(Util.GetConfigVariable("captchaSettings", null)));
         }
     }
 }

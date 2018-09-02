@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageReference Include="Indigo.Functions.Unity" Version="0.4.0-prerelease" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0-preview1-35029" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.14" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.19" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
   </ItemGroup>
   <ItemGroup>
@@ -19,10 +19,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
+    <Folder Include="DependencyInjection\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\rgomezj.Freelance.meServerless.Core\rgomezj.Freelance.meServerless.Core.csproj" />
     <ProjectReference Include="..\rgomezj.Freelance.MeServerless.Data\rgomezj.Freelance.MeServerless.Data.csproj" />
+    <ProjectReference Include="..\rgomezj.Freelance.meServerless.Services\rgomezj.Freelance.meServerless.Services.csproj" />
   </ItemGroup>
 </Project>

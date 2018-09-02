@@ -1,15 +1,15 @@
-﻿using rgomezj.Freelance.meServerless.API;
+﻿using rgomezj.Freelance.meServerless.Core;
+using rgomezj.Freelance.meServerless.Services.Abstract;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using rgomezj.Freelance.meServerless.Core;
 
-namespace rgomezj.Freelance.meServerless.Services
+namespace rgomezj.Freelance.meServerless.Services.Implementation
 {
-    public class SendGridEmailService 
+    public class SendGridEmailService : IEmailService
     {
         private EmailSettings _emailSettings;
         

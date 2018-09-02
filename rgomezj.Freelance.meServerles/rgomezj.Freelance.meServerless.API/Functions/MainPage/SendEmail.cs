@@ -18,43 +18,46 @@ using System.Linq;
 using rgomezj.Freelance.meServerless.API.Functions;
 using rgomezj.Freelance.MeServerless.Data;
 using Indigo.Functions.Unity;
+using rgomezj.Freelance.meServerless.Services.Implementation;
+using rgomezj.Freelance.meServerless.Services.Abstract;
 
 namespace rgomezj.Freelance.meServerless.API
 {
     public static class SendEmail
     {
-        [FunctionName("SendEmail")]
-        public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequest req, [Inject]IGeneralInfoRepository generalRepository, TraceWriter log, ExecutionContext context)
-        {
-            #region Getting Request values and configuration
+        private static IGeneralInfoRepository _generalRepository;
+        private static IAptitudeRepository _aptitudeRepository;
+        private static ICompanyRepository _companyRepository;
+        private static IReferenceRepository _referenceRepository;
+        private static ISkillRepository _skillRepository;
+        private static ITechnologyRepository _technologyRepository;
 
-            var config = Util.InitConfiguration(context);
+        private static IEmailService _emailService;
+        private static ICaptchaValidationService _captchaValidationService;
+
+        [FunctionName("SendEmail")]
+        public async static Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequest req, TraceWriter log)
+        {
+            Util.InitializeInstances(ref _generalRepository, ref _aptitudeRepository, ref _companyRepository, ref _referenceRepository, ref _skillRepository, ref _technologyRepository, ref _emailService, ref _captchaValidationService);
+
+            #region Getting Request values and configuration
 
             string requestFormValues = new StreamReader(req.Body).ReadToEnd();
             string message = Util.GetSerializedBody(requestFormValues);
 
             EmailMessage emailMessage = Util.Deserialize<EmailMessage>(message);
-
-            string captchaSettings = Util.GetConfigVariable("captchaSettings", config);
-            string emailSettings = Util.GetConfigVariable("emailSettings", config);
-            CaptchaSettings captchaSettingsConfig = Util.Deserialize<CaptchaSettings>(captchaSettings);
-            EmailSettings emailSettingsConfig = Util.Deserialize<EmailSettings>(emailSettings);
-
-            CaptchaValidationService _captchaValidationService = new CaptchaValidationService(captchaSettingsConfig);
-            string captchaResponse = Util.GetFormValue(requestFormValues, captchaSettingsConfig.CaptchaResponseKey);
+            string captchaResponse = Util.GetFormValue(requestFormValues, _captchaValidationService.GetSettings().CaptchaResponseKey);
             
-            SendGridEmailService _emailService = new SendGridEmailService(emailSettingsConfig);
-
             #endregion
 
-            var validationResult = await _captchaValidationService.IsValidCaptcha(captchaSettingsConfig.SecretKey, captchaResponse);
+            var validationResult = await _captchaValidationService.IsValidCaptcha(_captchaValidationService.GetSettings().SecretKey, captchaResponse);
             string errorMessage = string.Empty;
             bool success = true;
 
             if (validationResult)
             {
                 string name = System.Net.WebUtility.HtmlEncode(emailMessage.FromName);
-                GeneralInfo generalInfo = await FreelanceInfo.GetGeneralInfo(context);
+                GeneralInfo generalInfo = await _generalRepository.Get();
                 emailMessage.To = generalInfo.EmailAddress;
                 emailMessage.ToName = generalInfo.Name;
                 emailMessage.Message = emailMessage.Message + Environment.NewLine + emailMessage.FromName + Environment.NewLine + emailMessage.From;

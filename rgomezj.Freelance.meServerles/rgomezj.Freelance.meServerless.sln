@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rgomezj.Freelance.meServerl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rgomezj.Freelance.meServerless.API", "rgomezj.Freelance.meServerless.API\rgomezj.Freelance.meServerless.API.csproj", "{664BE612-3280-45D6-83BA-D818A1753815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rgomezj.Freelance.meServerless.Core", "rgomezj.Freelance.meServerless.Core\rgomezj.Freelance.meServerless.Core.csproj", "{DDF0EABD-A163-477D-B658-83C86D525DA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rgomezj.Freelance.meServerless.Core", "rgomezj.Freelance.meServerless.Core\rgomezj.Freelance.meServerless.Core.csproj", "{DDF0EABD-A163-477D-B658-83C86D525DA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rgomezj.Freelance.MeServerless.Data", "rgomezj.Freelance.MeServerless.Data\rgomezj.Freelance.MeServerless.Data.csproj", "{BA3A628C-4A2F-4602-9BCA-47EECA3D7667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rgomezj.Freelance.MeServerless.Data", "rgomezj.Freelance.MeServerless.Data\rgomezj.Freelance.MeServerless.Data.csproj", "{BA3A628C-4A2F-4602-9BCA-47EECA3D7667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rgomezj.Freelance.meServerless.Services", "rgomezj.Freelance.meServerless.Services\rgomezj.Freelance.meServerless.Services.csproj", "{0D8888F2-3FC4-4EF6-897A-F92DDAC86A39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BA3A628C-4A2F-4602-9BCA-47EECA3D7667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA3A628C-4A2F-4602-9BCA-47EECA3D7667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA3A628C-4A2F-4602-9BCA-47EECA3D7667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8888F2-3FC4-4EF6-897A-F92DDAC86A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8888F2-3FC4-4EF6-897A-F92DDAC86A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8888F2-3FC4-4EF6-897A-F92DDAC86A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8888F2-3FC4-4EF6-897A-F92DDAC86A39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
