@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-using rgomezj.Freelance.meServerless.API;
+using rgomezj.Freelance.meServerless.Core;
+using rgomezj.Freelance.meServerless.Services.Abstract;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
@@ -8,11 +9,10 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using rgomezj.Freelance.meServerless.Core;
 
-namespace rgomezj.Freelance.meServerless.Services
+namespace rgomezj.Freelance.meServerless.Services.Implementation
 {
-    public class CaptchaValidationService
+    public class CaptchaValidationService : ICaptchaValidationService
     {
         CaptchaSettings _captchaSettings;
 

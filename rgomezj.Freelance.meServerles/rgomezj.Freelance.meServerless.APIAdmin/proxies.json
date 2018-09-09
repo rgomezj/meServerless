@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "Index.html": {
+      "matchCondition": {
+        "route": "/"
+      },
+      "backendUri": "https://rogergomez.z13.web.core.windows.net/admin/index.html"
+    },
+    "CSS Passthrough": {
+      "matchCondition": {
+        "route": "/css/{*restOfPath}"
+      },
+      "backendUri": "https://rogergomez.z13.web.core.windows.net/admin/css/{restOfPath}"
+    },
+    "Javascript Passthrough": {
+      "matchCondition": {
+        "route": "/js/{*restOfPath}"
+      },
+      "backendUri": "https://rogergomez.z13.web.core.windows.net/admin/js/{restOfPath}"
+    },
+    "Template Passthrough": {
+      "matchCondition": {
+        "route": "/template/{*restOfPath}"
+      },
+      "backendUri": "https://rogergomez.z13.web.core.windows.net/admin/template/{restOfPath}"
+    }
+  }
+}

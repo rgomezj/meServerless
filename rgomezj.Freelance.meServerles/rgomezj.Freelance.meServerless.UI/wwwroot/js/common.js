@@ -39,7 +39,7 @@
             return "http://localhost:7071/api/";
         }
         else {
-            return "https://mefreelancefunctionapp.azurewebsites.net/api/";
+            return window.document.location.protocol + "//" + window.document.location.host + "/api/";
         }
     }
 
