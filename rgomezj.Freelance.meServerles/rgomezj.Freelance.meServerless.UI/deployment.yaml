@@ -1,11 +1,13 @@
-﻿# Azure File Copy
-# Copy files to Azure blob or VM(s)
+﻿steps:
 - task: AzureFileCopy@2
+  displayName: 'AzureBlob File Copy'
   inputs:
-    sourcePath: $(Build.Repository.LocalPath)/rgomezj.Freelance.meServerless/rgomezj.Freelance.meServerless.UI
-	destination: azureBlob
-    containerName: $web
-    #blobPrefix: # Optional
-    #additionalArgumentsForBlobCopy: # Optional
-    #additionalArgumentsForVMCopy: # Optional
-    #enableCopyPrerequisites: false # Optional
+    SourcePath: rgomezj.Freelance.meServerles/rgomezj.Freelance.meServerless.UI/wwwroot
+
+    azureSubscription: 'Pay-As-You-Go Dev/Test (af2792d7-bb35-4339-9cc7-5bb060db3f12)'
+
+    Destination: AzureBlob
+
+    storage: rogergomezstaging
+
+    ContainerName: '$web'
