@@ -29,7 +29,6 @@
     }
 
     common.setApiInfo = function () {
-        common.getApiBase
         common.API.INFO = common.getApiBase() + "FreelanceInfo";
         common.API.SENDEMAIL = common.getApiBase() + "SendEmail";
     }
@@ -38,13 +37,20 @@
         if (common.isLocal()) {
             return "http://localhost:7071/api/";
         }
+        else if (common.isStaging()) {
+            return "https://mefreelancefunctionappstaging.azurewebsites.net/";
+        }
         else {
-            return window.document.location.protocol + "//" + window.document.location.host + "/api/";
+            return "https://mefreelancefunctionapp.azurewebsites.net/api/";
         }
     }
 
     common.isLocal = function () {
         return window.document.location.href.toUpperCase().indexOf("LOCALHOST") > -1;
+    }
+
+    common.isStaging = function () {
+        return window.document.location.href.toUpperCase().indexOf("STAGING") > -1;
     }
 
     common.HideProgressMessage = function () {

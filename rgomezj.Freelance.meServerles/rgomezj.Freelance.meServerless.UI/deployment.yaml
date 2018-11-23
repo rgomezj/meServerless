@@ -1,0 +1,11 @@
+﻿# Azure File Copy
+# Copy files to Azure blob or VM(s)
+- task: AzureFileCopy@2
+  inputs:
+    sourcePath: $(Build.Repository.LocalPath)/rgomezj.Freelance.meServerless/rgomezj.Freelance.meServerless.UI
+	destination: azureBlob
+    containerName: $web
+    #blobPrefix: # Optional
+    #additionalArgumentsForBlobCopy: # Optional
+    #additionalArgumentsForVMCopy: # Optional
+    #enableCopyPrerequisites: false # Optional
