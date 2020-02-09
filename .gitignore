@@ -125,3 +125,6 @@ Thumbs.db
 **/mysettings.Development.json
 **/mysettings.staging.json
 **/mysettings.production.json
+/rgomezj.Freelance.meServerles/rgomezj.Freelance.meServerless.UI/wwwroot/blog/node_modules
+/rgomezj.Freelance.meServerles/rgomezj.Freelance.meServerless.UI/wwwroot/blog/public
+/rgomezj.Freelance.meServerles/rgomezj.Freelance.meServerless.UI/wwwroot/blog/.env
